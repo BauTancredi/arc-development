@@ -103,9 +103,13 @@ const useStyles = makeStyles((theme) => ({
   drawerItem: {
     ...theme.typography.tab,
     color: "white",
+    opacity: "0.7",
   },
   drawerItemEstimate: {
     backgroundColor: theme.palette.common.orange,
+  },
+  drawerIconSelected: {
+    opacity: "1",
   },
 }));
 
@@ -316,9 +320,20 @@ const Header = (props) => {
             button
             component={Link}
             to="/"
-            onClick={() => setOpenDrawer(false)}
+            onClick={() => {
+              setOpenDrawer(false);
+              setValue(0);
+            }}
+            selected={value === 0}
           >
-            <ListItemText disableTypography className={classes.drawerItem}>
+            <ListItemText
+              disableTypography
+              className={
+                value === 0
+                  ? [classes.drawerItem, classes.drawerIconSelected]
+                  : classes.drawerItem
+              }
+            >
               Home
             </ListItemText>
           </ListItem>
@@ -327,9 +342,20 @@ const Header = (props) => {
             button
             component={Link}
             to="/services"
-            onClick={() => setOpenDrawer(false)}
+            onClick={() => {
+              setOpenDrawer(false);
+              setValue(1);
+            }}
+            selected={value === 1}
           >
-            <ListItemText disableTypography className={classes.drawerItem}>
+            <ListItemText
+              disableTypography
+              className={
+                value === 1
+                  ? [classes.drawerItem, classes.drawerIconSelected]
+                  : classes.drawerItem
+              }
+            >
               Services
             </ListItemText>
           </ListItem>
@@ -338,9 +364,20 @@ const Header = (props) => {
             button
             component={Link}
             to="/revolution"
-            onClick={() => setOpenDrawer(false)}
+            onClick={() => {
+              setOpenDrawer(false);
+              setValue(2);
+            }}
+            selected={value === 2}
           >
-            <ListItemText disableTypography className={classes.drawerItem}>
+            <ListItemText
+              disableTypography
+              className={
+                value === 2
+                  ? [classes.drawerItem, classes.drawerIconSelected]
+                  : classes.drawerItem
+              }
+            >
               The Revolution
             </ListItemText>
           </ListItem>
@@ -349,9 +386,20 @@ const Header = (props) => {
             button
             component={Link}
             to="/about"
-            onClick={() => setOpenDrawer(false)}
+            onClick={() => {
+              setOpenDrawer(false);
+              setValue(3);
+            }}
+            selected={value === 3}
           >
-            <ListItemText disableTypography className={classes.drawerItem}>
+            <ListItemText
+              disableTypography
+              className={
+                value === 3
+                  ? [classes.drawerItem, classes.drawerIconSelected]
+                  : classes.drawerItem
+              }
+            >
               About Us
             </ListItemText>
           </ListItem>
@@ -360,9 +408,20 @@ const Header = (props) => {
             button
             component={Link}
             to="/contact"
-            onClick={() => setOpenDrawer(false)}
+            onClick={() => {
+              setOpenDrawer(false);
+              setValue(4);
+            }}
+            selected={value === 4}
           >
-            <ListItemText disableTypography className={classes.drawerItem}>
+            <ListItemText
+              disableTypography
+              className={
+                value === 4
+                  ? [classes.drawerItem, classes.drawerIconSelected]
+                  : classes.drawerItem
+              }
+            >
               Contact Us
             </ListItemText>
           </ListItem>
@@ -371,10 +430,21 @@ const Header = (props) => {
             button
             component={Link}
             to="/estimate"
-            onClick={() => setOpenDrawer(false)}
+            onClick={() => {
+              setOpenDrawer(false);
+              setValue(5);
+            }}
             className={classes.drawerItemEstimate}
+            selected={value === 5}
           >
-            <ListItemText disableTypography className={classes.drawerItem}>
+            <ListItemText
+              disableTypography
+              className={
+                value === 5
+                  ? [classes.drawerItem, classes.drawerIconSelected]
+                  : classes.drawerItem
+              }
+            >
               Free Estimate
             </ListItemText>
           </ListItem>
