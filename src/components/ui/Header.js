@@ -129,85 +129,76 @@ const Header = (props) => {
     {
       name: "Services",
       link: "/services",
+      activeIndex: 1,
+      selectedIndex: 0,
     },
     {
       name: "Custom Software Devolopment",
       link: "/customsoftware",
+      activeIndex: 1,
+      selectedIndex: 1,
     },
     {
       name: "Mobile App Devolopment",
       link: "/mobileapps",
+      activeIndex: 1,
+      selectedIndex: 2,
     },
     {
       name: "Website Devolopment",
       link: "/websites",
+      activeIndex: 1,
+      selectedIndex: 3,
+    },
+  ];
+
+  const routes = [
+    {
+      name: "Home",
+      link: "/",
+      activeIndex: 0,
+    },
+    {
+      name: "Services",
+      link: "/services",
+      activeIndex: 1,
+      ariaOwns: anchorEl ? "simple-menu" : undefined,
+      ariaPopup: anchorEl ? "true" : undefined,
+      mouseOver: (e) => handleClick(e),
+    },
+    {
+      name: "The Revolution",
+      link: "/revolution",
+      activeIndex: 2,
+    },
+    {
+      name: "About Us",
+      link: "/about",
+      activeIndex: 3,
+    },
+    {
+      name: "Contact Us",
+      link: "/contact",
+      activeIndex: 4,
     },
   ];
 
   useEffect(() => {
-    switch (window.location.pathname) {
-      case "/":
-        if (value !== 0) {
-          setValue(0);
-        }
-        break;
-
-      case "/services":
-        if (value !== 1) {
-          setValue(1);
-          setSelectedIndex(0);
-        }
-        break;
-
-      case "/customsoftware":
-        if (value !== 1) {
-          setValue(1);
-          setSelectedIndex(1);
-        }
-        break;
-
-      case "/mobileapps":
-        if (value !== 1) {
-          setValue(1);
-          setSelectedIndex(2);
-        }
-        break;
-
-      case "/websites":
-        if (value !== 1) {
-          setValue(1);
-          setSelectedIndex(3);
-        }
-        break;
-
-      case "/revolution":
-        if (value !== 2) {
-          setValue(2);
-        }
-        break;
-
-      case "/about":
-        if (value !== 3) {
-          setValue(3);
-        }
-        break;
-
-      case "/contact":
-        if (value !== 4) {
-          setValue(4);
-        }
-        break;
-
-      case "/estimate":
-        if (value !== 5) {
-          setValue(5);
-        }
-        break;
-
-      default:
-        break;
-    }
-  }, [value]);
+    [...menuOptions, ...routes].forEach((route) => {
+      switch (window.location.pathname) {
+        case `${route.link}`:
+          if (value !== route.activeIndex) {
+            setValue(route.activeIndex);
+            if (route.selectedIndex && route.selectedIndex !== selectedIndex) {
+              setSelectedIndex(route.selectedIndex);
+            }
+          }
+          break;
+        default:
+          break;
+      }
+    });
+  }, [value, menuOptions, routes, selectedIndex]);
 
   const handleChange = (e, newValue) => {
     setValue(newValue);
@@ -237,34 +228,18 @@ const Header = (props) => {
         className={classes.tabContainer}
         indicatorColor="primary" // For Hiding the indicator of the active tab
       >
-        <Tab className={classes.tab} component={Link} to="/" label="Home" />
-        <Tab
-          aria-owns={anchorEl ? "simple-menu" : undefined}
-          aria-haspopup={anchorEl ? "true" : undefined}
-          onMouseOver={(e) => handleClick(e)}
-          className={classes.tab}
-          component={Link}
-          to="/services"
-          label="Services"
-        />
-        <Tab
-          className={classes.tab}
-          component={Link}
-          to="/revolution"
-          label="The Revolution"
-        />
-        <Tab
-          className={classes.tab}
-          component={Link}
-          to="/about"
-          label="About Us"
-        />
-        <Tab
-          className={classes.tab}
-          component={Link}
-          to="/contact"
-          label="Contact Us"
-        />
+        {routes.map((route, index) => (
+          <Tab
+            key={`${route}${index}`}
+            className={classes.tab}
+            component={Link}
+            to={route.link}
+            label={route.name}
+            aria-owns={route.ariaOwns}
+            aria-haspopup={route.ariaPopup}
+            onMouseOver={route.mouseOver}
+          />
+        ))}
       </Tabs>
       <Button
         variant="contained"
@@ -283,6 +258,7 @@ const Header = (props) => {
         classes={{ paper: classes.menu }}
         MenuListProps={{ onMouseLeave: handleClose }}
         elevation={0}
+        keepMounted
       >
         {menuOptions.map((option, index) => (
           <MenuItem
@@ -315,116 +291,31 @@ const Header = (props) => {
         classes={{ paper: classes.drawer }}
       >
         <List disablePadding>
-          <ListItem
-            divider
-            button
-            component={Link}
-            to="/"
-            onClick={() => {
-              setOpenDrawer(false);
-              setValue(0);
-            }}
-            selected={value === 0}
-          >
-            <ListItemText
-              disableTypography
-              className={
-                value === 0
-                  ? [classes.drawerItem, classes.drawerIconSelected]
-                  : classes.drawerItem
-              }
+          {routes.map((route) => (
+            <ListItem
+              key={`${route}${route.activeIndex}`}
+              onClick={() => {
+                setOpenDrawer(false);
+                setValue(route.activeIndex);
+              }}
+              divider
+              button
+              component={Link}
+              to={route.link}
+              selected={value === route.activeIndex}
             >
-              Home
-            </ListItemText>
-          </ListItem>
-          <ListItem
-            divider
-            button
-            component={Link}
-            to="/services"
-            onClick={() => {
-              setOpenDrawer(false);
-              setValue(1);
-            }}
-            selected={value === 1}
-          >
-            <ListItemText
-              disableTypography
-              className={
-                value === 1
-                  ? [classes.drawerItem, classes.drawerIconSelected]
-                  : classes.drawerItem
-              }
-            >
-              Services
-            </ListItemText>
-          </ListItem>
-          <ListItem
-            divider
-            button
-            component={Link}
-            to="/revolution"
-            onClick={() => {
-              setOpenDrawer(false);
-              setValue(2);
-            }}
-            selected={value === 2}
-          >
-            <ListItemText
-              disableTypography
-              className={
-                value === 2
-                  ? [classes.drawerItem, classes.drawerIconSelected]
-                  : classes.drawerItem
-              }
-            >
-              The Revolution
-            </ListItemText>
-          </ListItem>
-          <ListItem
-            divider
-            button
-            component={Link}
-            to="/about"
-            onClick={() => {
-              setOpenDrawer(false);
-              setValue(3);
-            }}
-            selected={value === 3}
-          >
-            <ListItemText
-              disableTypography
-              className={
-                value === 3
-                  ? [classes.drawerItem, classes.drawerIconSelected]
-                  : classes.drawerItem
-              }
-            >
-              About Us
-            </ListItemText>
-          </ListItem>
-          <ListItem
-            divider
-            button
-            component={Link}
-            to="/contact"
-            onClick={() => {
-              setOpenDrawer(false);
-              setValue(4);
-            }}
-            selected={value === 4}
-          >
-            <ListItemText
-              disableTypography
-              className={
-                value === 4
-                  ? [classes.drawerItem, classes.drawerIconSelected]
-                  : classes.drawerItem
-              }
-            >
-              Contact Us
-            </ListItemText>
-          </ListItem>
+              <ListItemText
+                disableTypography
+                className={
+                  value === route.activeIndex
+                    ? [classes.drawerItem, classes.drawerIconSelected]
+                    : classes.drawerItem
+                }
+              >
+                {route.name}
+              </ListItemText>
+            </ListItem>
+          ))}
           <ListItem
             divider
             button
