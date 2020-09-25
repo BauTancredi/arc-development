@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Footer = () => {
+const Footer = (props) => {
   const classes = useStyles();
 
   return (
@@ -46,14 +46,29 @@ const Footer = () => {
       <Grid container justify="center" className={classes.mainContainer}>
         <Grid item className={classes.gridItem}>
           <Grid container direction="column" spacing={2}>
-            <Grid item className={classes.link} component={Link} to="/">
+            <Grid
+              item
+              className={classes.link}
+              component={Link}
+              to="/"
+              onClick={() => props.setValue(0)}
+            >
               Home
             </Grid>
           </Grid>
         </Grid>
         <Grid item className={classes.gridItem}>
           <Grid container direction="column" spacing={2}>
-            <Grid item className={classes.link} component={Link} to="/services">
+            <Grid
+              item
+              className={classes.link}
+              component={Link}
+              to="/services"
+              onClick={() => {
+                props.setValue(1);
+                props.setSelectedIndex(0);
+              }}
+            >
               Services
             </Grid>
             <Grid
@@ -61,6 +76,10 @@ const Footer = () => {
               className={classes.link}
               component={Link}
               to="/customsoftware"
+              onClick={() => {
+                props.setValue(1);
+                props.setSelectedIndex(1);
+              }}
             >
               Custom Software Development
             </Grid>
@@ -69,10 +88,23 @@ const Footer = () => {
               className={classes.link}
               component={Link}
               to="/mobileapps"
+              onClick={() => {
+                props.setValue(1);
+                props.setSelectedIndex(2);
+              }}
             >
               Mobile App Development
             </Grid>
-            <Grid item className={classes.link} component={Link} to="/websites">
+            <Grid
+              item
+              className={classes.link}
+              component={Link}
+              to="/websites"
+              onClick={() => {
+                props.setValue(1);
+                props.setSelectedIndex(3);
+              }}
+            >
               Website Development
             </Grid>
           </Grid>
@@ -84,6 +116,7 @@ const Footer = () => {
               className={classes.link}
               component={Link}
               to="/revolution"
+              onClick={() => props.setValue(2)}
             >
               The Revolution
             </Grid>
@@ -92,6 +125,7 @@ const Footer = () => {
               className={classes.link}
               component={Link}
               to="/revolution"
+              onClick={() => props.setValue(2)}
             >
               Vision
             </Grid>
@@ -100,6 +134,7 @@ const Footer = () => {
               className={classes.link}
               component={Link}
               to="/revolution"
+              onClick={() => props.setValue(2)}
             >
               Technology
             </Grid>
@@ -108,6 +143,7 @@ const Footer = () => {
               className={classes.link}
               component={Link}
               to="/revolution"
+              onClick={() => props.setValue(2)}
             >
               Process
             </Grid>
@@ -115,20 +151,44 @@ const Footer = () => {
         </Grid>
         <Grid item className={classes.gridItem}>
           <Grid container direction="column" spacing={2}>
-            <Grid item className={classes.link} component={Link} to="/about">
+            <Grid
+              item
+              className={classes.link}
+              component={Link}
+              to="/about"
+              onClick={() => props.setValue(3)}
+            >
               Abous Us
             </Grid>
-            <Grid item className={classes.link} component={Link} to="/about">
+            <Grid
+              item
+              className={classes.link}
+              component={Link}
+              to="/about"
+              onClick={() => props.setValue(3)}
+            >
               History
             </Grid>
-            <Grid item className={classes.link} component={Link} to="/about">
+            <Grid
+              item
+              className={classes.link}
+              component={Link}
+              to="/about"
+              onClick={() => props.setValue(3)}
+            >
               Team
             </Grid>
           </Grid>
         </Grid>
         <Grid item className={classes.gridItem}>
           <Grid container direction="column" spacing={2}>
-            <Grid item className={classes.link} component={Link} to="contact">
+            <Grid
+              item
+              className={classes.link}
+              component={Link}
+              to="contact"
+              onClick={() => props.setValue(4)}
+            >
               Contact Us
             </Grid>
           </Grid>

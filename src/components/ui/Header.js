@@ -124,10 +124,8 @@ const Header = (props) => {
   const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
   const matches = UseMediaQuery(theme.breakpoints.down("md"));
 
-  const [value, setValue] = useState(0);
   const [anchorEl, setAnchorEl] = useState(null);
   const [openMenu, setOpenMenu] = useState(false);
-  const [selectedIndex, setSelectedIndex] = useState(0);
   const [openDrawer, setOpenDrawer] = useState(false);
 
   const menuOptions = [
@@ -192,10 +190,13 @@ const Header = (props) => {
     [...menuOptions, ...routes].forEach((route) => {
       switch (window.location.pathname) {
         case `${route.link}`:
-          if (value !== route.activeIndex) {
-            setValue(route.activeIndex);
-            if (route.selectedIndex && route.selectedIndex !== selectedIndex) {
-              setSelectedIndex(route.selectedIndex);
+          if (props.value !== route.activeIndex) {
+            props.setValue(route.activeIndex);
+            if (
+              route.selectedIndex &&
+              route.selectedIndex !== props.selectedIndex
+            ) {
+              props.setSelectedIndex(route.selectedIndex);
             }
           }
           break;
@@ -203,10 +204,10 @@ const Header = (props) => {
           break;
       }
     });
-  }, [value, menuOptions, routes, selectedIndex]);
+  }, [props.value, menuOptions, routes, props.selectedIndex, props]);
 
   const handleChange = (e, newValue) => {
-    setValue(newValue);
+    props.setValue(newValue);
   };
 
   const handleClick = (e) => {
@@ -222,13 +223,13 @@ const Header = (props) => {
   const handleMenuItemClick = (e, index) => {
     setAnchorEl(null);
     setOpenMenu(false);
-    setSelectedIndex(index);
+    props.setSelectedIndex(index);
   };
 
   const tabs = (
     <Fragment>
       <Tabs
-        value={value}
+        value={props.value}
         onChange={handleChange}
         className={classes.tabContainer}
         indicatorColor="primary" // For Hiding the indicator of the active tab
@@ -271,13 +272,13 @@ const Header = (props) => {
             key={`"${option}${index}`}
             onClick={(e) => {
               handleMenuItemClick(e, index);
-              setValue(1);
+              props.setValue(1);
               handleClose();
             }}
             component={Link}
             to={option.link}
             classes={{ root: classes.menuItem }}
-            selected={index === selectedIndex && value === 1}
+            selected={index === props.selectedIndex && props.value === 1}
           >
             {option.name}
           </MenuItem>
@@ -303,13 +304,13 @@ const Header = (props) => {
               key={`${route}${route.activeIndex}`}
               onClick={() => {
                 setOpenDrawer(false);
-                setValue(route.activeIndex);
+                props.setValue(route.activeIndex);
               }}
               divider
               button
               component={Link}
               to={route.link}
-              selected={value === route.activeIndex}
+              selected={props.value === route.activeIndex}
               classes={{ selected: classes.drawerIconSelected }}
             >
               <ListItemText disableTypography className={classes.drawerItem}>
@@ -324,13 +325,13 @@ const Header = (props) => {
             to="/estimate"
             onClick={() => {
               setOpenDrawer(false);
-              setValue(5);
+              props.setValue(5);
             }}
             classes={{
               root: classes.drawerItemEstimate,
               selected: classes.drawerIconSelected,
             }}
-            selected={value === 5}
+            selected={props.value === 5}
           >
             <ListItemText disableTypography className={classes.drawerItem}>
               Free Estimate
@@ -357,7 +358,7 @@ const Header = (props) => {
               component={Link}
               to="/"
               className={classes.logoContainer}
-              onClick={() => setValue(0)}
+              onClick={() => props.setValue(0)}
               disableRipple
             >
               <img src={logo} alt="Company logo" className={classes.logo} />
