@@ -4,6 +4,7 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 import ButtonArrow from "./ui/ButtonArrow";
 import animationData from "../animations/landinganimation/data";
@@ -44,6 +45,9 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "0.7rem",
     height: 35,
     padding: 5,
+    [theme.breakpoints.down("sm")]: {
+      marginBottom: "2em",
+    },
   },
   mainContainer: {
     marginTop: "5em",
@@ -68,11 +72,24 @@ const useStyles = makeStyles((theme) => ({
   subtitle: {
     marginBottom: "1em",
   },
+  icon: {
+    marginLeft: "2em",
+    [theme.breakpoints.down("xs")]: {
+      marginLeft: 0,
+    },
+  },
+  serviceContainer: {
+    marginTop: "12em",
+    [theme.breakpoints.down("sm")]: {
+      padding: 25,
+    },
+  },
 }));
 
 const LandingPage = () => {
   const classes = useStyles();
   const theme = useTheme();
+  const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
 
   const defaultOptions = {
     loop: true,
@@ -121,8 +138,18 @@ const LandingPage = () => {
       </Grid>
       {/*-----Services Block-----*/}
       <Grid item>
-        <Grid container>
-          <Grid item>
+        <Grid
+          container
+          className={classes.serviceContainer}
+          justify={matchesSM ? "center" : undefined}
+        >
+          <Grid
+            item
+            style={{
+              marginLeft: matchesSM ? 0 : "5em",
+              textAlign: matchesSM ? "center" : undefined,
+            }}
+          >
             <Typography variant="h4">Custom Software Development</Typography>
             <Typography variant="subtitle1" className={classes.subtitle}>
               Save Energy. Save Time. Save Money.
@@ -145,7 +172,11 @@ const LandingPage = () => {
             </Button>
           </Grid>
           <Grid>
-            <img src={customSoftwareIcon} alt="custom software" />
+            <img
+              className={classes.icon}
+              src={customSoftwareIcon}
+              alt="custom software"
+            />
           </Grid>
         </Grid>
       </Grid>
