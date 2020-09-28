@@ -10,6 +10,7 @@ import ButtonArrow from "./ui/ButtonArrow";
 import animationData from "../animations/landinganimation/data";
 import customSoftwareIcon from "../assets/Custom Software Icon.svg";
 import mobileAppsIcon from "../assets/mobileIcon.svg";
+import websitesIcon from "../assets/websiteIcon.svg";
 
 const useStyles = makeStyles((theme) => ({
   animation: {
@@ -176,7 +177,7 @@ const LandingPage = () => {
             <img
               className={classes.icon}
               src={customSoftwareIcon}
-              alt="custom software"
+              alt="custom software icon"
             />
           </Grid>
         </Grid>
@@ -219,7 +220,50 @@ const LandingPage = () => {
             <img
               className={classes.icon}
               src={mobileAppsIcon}
-              alt="custom software"
+              alt="mobile apps icon"
+            />
+          </Grid>
+        </Grid>
+      </Grid>
+      {/*-----Websites Block-----*/}
+      <Grid item>
+        <Grid
+          container
+          className={classes.serviceContainer}
+          justify={matchesSM ? "center" : undefined}
+        >
+          <Grid
+            item
+            style={{
+              marginLeft: matchesSM ? 0 : "5em",
+              textAlign: matchesSM ? "center" : undefined,
+            }}
+          >
+            <Typography variant="h4">Website Development</Typography>
+            <Typography variant="subtitle1" className={classes.subtitle}>
+              Reach More. Discover More. Sell More.
+            </Typography>
+            <Typography variant="subtitle1">
+              Optimized for Search Engines, built for speed.
+            </Typography>
+            <Button
+              variant="outlined"
+              style={{ marginRight: 10 }}
+              className={classes.learnButton}
+            >
+              Learn More
+              <ButtonArrow
+                width={10}
+                height={10}
+                fill={theme.palette.common.blue}
+              />
+            </Button>
+          </Grid>
+          <Grid item>
+            <img
+              className={classes.icon}
+              src={websitesIcon}
+              alt="website icon"
             />
           </Grid>
         </Grid>
