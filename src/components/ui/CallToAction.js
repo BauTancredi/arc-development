@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "0.7rem",
     height: 35,
     padding: 5,
+
     [theme.breakpoints.down("sm")]: {
       marginBottom: "2em",
     },
@@ -43,6 +44,9 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "1.5rem",
     marginRight: "5em",
     marginLeft: "2em",
+    "&:hover": {
+      backgroundColor: theme.palette.secondary.light,
+    },
     [theme.breakpoints.down("sm")]: {
       marginRight: 0,
       marginLeft: 0,
