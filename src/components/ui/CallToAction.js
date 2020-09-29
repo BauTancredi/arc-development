@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
@@ -49,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CallToAction = () => {
+const CallToAction = (props) => {
   const classes = useStyles();
   const theme = useTheme();
   const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
@@ -79,7 +80,13 @@ const CallToAction = () => {
               Take advantage of the 21st century.
             </Typography>
             <Grid container item justify={matchesSM ? "center" : undefined}>
-              <Button variant="outlined" className={classes.learnButton}>
+              <Button
+                variant="outlined"
+                className={classes.learnButton}
+                component={Link}
+                to="/revolution"
+                onClick={() => props.setValue(2)}
+              >
                 <span style={{ marginRight: 5 }}> Learn More</span>
 
                 <ButtonArrow
@@ -93,7 +100,13 @@ const CallToAction = () => {
         </Grid>
       </Grid>
       <Grid item>
-        <Button variant="contained" className={classes.estimateButton}>
+        <Button
+          variant="contained"
+          className={classes.estimateButton}
+          component={Link}
+          to="/estimate"
+          onClick={() => props.setValue(5)}
+        >
           Free estimate
         </Button>
       </Grid>
