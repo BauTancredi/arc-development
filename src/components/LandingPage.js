@@ -102,14 +102,14 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: theme.shadows[10],
     borderRadius: 15,
     padding: "10em",
-  },
-  [theme.breakpoints.down("sm")]: {
-    paddingTop: "8em",
-    paddingBottom: "8em",
-    paddingRight: 0,
-    paddingLeft: 0,
-    borderRadius: 0,
-    width: "100%",
+    [theme.breakpoints.down("sm")]: {
+      paddingTop: "8em",
+      paddingBottom: "8em",
+      paddingLeft: 0,
+      paddingRight: 0,
+      borderRadius: 0,
+      width: "100%",
+    },
   },
 }));
 
