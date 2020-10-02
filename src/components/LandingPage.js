@@ -417,6 +417,7 @@ const LandingPage = (props) => {
                     variant="outlined"
                     style={{ marginRight: 10 }}
                     className={classes.learnButton}
+                    // eslint-disable-next-line
                     style={{ color: "white", borderColor: "white" }}
                     component={Link}
                     to="/about"
@@ -447,6 +448,7 @@ const LandingPage = (props) => {
                     variant="outlined"
                     style={{ marginRight: 10 }}
                     className={classes.learnButton}
+                    // eslint-disable-next-line
                     style={{ color: "white", borderColor: "white" }}
                     component={Link}
                     to="/contact"
