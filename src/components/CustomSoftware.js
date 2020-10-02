@@ -20,17 +20,15 @@ import scaleAnimation from "../animations/scaleAnimation/data";
 import automationAnimation from "../animations/automationAnimation/data";
 import uxAnimation from "../animations/uxAnimation/data";
 
+import CallToAction from "./ui/CallToAction";
+
 const useStyles = makeStyles((theme) => ({
-  mainContainer: {
+  rowContainer: {
     paddingLeft: "5em",
     paddingRight: "5em",
-    paddingTop: "2em",
-    paddingBottom: "10em",
-
     [theme.breakpoints.down("sm")]: {
       paddingLeft: "1.5em",
       paddingRight: "1.5em",
-      paddingTop: "1em",
     },
   },
   heading: {
@@ -49,6 +47,7 @@ const CustomSoftware = (props) => {
   const theme = useTheme();
   const matchesMD = useMediaQuery(theme.breakpoints.down("md"));
   const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
+  const matchesXS = useMediaQuery(theme.breakpoints.down("xs"));
 
   const documentOptions = {
     loop: true,
@@ -87,8 +86,14 @@ const CustomSoftware = (props) => {
   };
 
   return (
-    <Grid container direction="column" className={classes.mainContainer}>
-      <Grid item container justify={matchesMD ? "center" : undefined}>
+    <Grid container direction="column">
+      <Grid
+        item
+        container
+        justify={matchesMD ? "center" : undefined}
+        style={{ margintop: matchesXS ? "1em" : "2em" }}
+        className={classes.rowContainer}
+      >
         <Hidden mdDown>
           <Grid
             item
@@ -172,6 +177,7 @@ const CustomSoftware = (props) => {
         container
         justify="center"
         style={{ marginTop: "15em", marginBottom: "20em" }}
+        className={classes.rowContainer}
       >
         <Grid
           item
@@ -229,6 +235,7 @@ const CustomSoftware = (props) => {
         justify="space-between"
         direction={matchesMD ? "column" : "row"}
         alignItems={matchesMD ? "center" : undefined}
+        className={classes.rowContainer}
       >
         <Grid
           item
@@ -316,7 +323,12 @@ const CustomSoftware = (props) => {
           </Grid>
         </Grid>
       </Grid>
-      <Grid item container style={{ marginTop: "20em", marginBottom: "20em" }}>
+      <Grid
+        item
+        container
+        style={{ marginTop: "20em", marginBottom: "20em" }}
+        className={classes.rowContainer}
+      >
         <Grid item container direction="column" alignItems="center">
           <Grid item>
             <img
@@ -345,9 +357,10 @@ const CustomSoftware = (props) => {
         item
         container
         justify="space-between"
-        style={{ marginBottom: "10em" }}
+        style={{ marginBottom: "20em" }}
         direction={matchesMD ? "column" : "row"}
         alignItems={matchesMD ? "center" : undefined}
+        className={classes.rowContainer}
       >
         <Grid
           item
@@ -411,6 +424,7 @@ const CustomSoftware = (props) => {
           className={classes.itemContainer}
           md
           direction={matchesSM ? "column" : "row"}
+          className={classes.rowContainer}
         >
           <Grid item md>
             <Lottie
@@ -452,6 +466,9 @@ const CustomSoftware = (props) => {
             </Grid>
           </Grid>
         </Grid>
+      </Grid>
+      <Grid item>
+        <CallToAction setValue={props.setValue} />
       </Grid>
     </Grid>
   );
