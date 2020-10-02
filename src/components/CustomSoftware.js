@@ -232,7 +232,7 @@ const CustomSoftware = (props) => {
       <Grid
         item
         container
-        justify="space-between"
+        justify="space-around"
         direction={matchesMD ? "column" : "row"}
         alignItems={matchesMD ? "center" : undefined}
         className={classes.rowContainer}
@@ -356,7 +356,7 @@ const CustomSoftware = (props) => {
       <Grid
         item
         container
-        justify="space-between"
+        justify="space-around"
         style={{ marginBottom: "20em" }}
         direction={matchesMD ? "column" : "row"}
         alignItems={matchesMD ? "center" : undefined}
@@ -368,14 +368,9 @@ const CustomSoftware = (props) => {
           className={classes.itemContainer}
           md
           direction={matchesSM ? "column" : "row"}
+          style={{ marginBottom: matchesMD ? "15em" : 0 }}
         >
-          <Grid
-            item
-            container
-            direction="column"
-            md
-            style={{ marginBottom: matchesMD ? "15em" : 0 }}
-          >
+          <Grid item container direction="column" md>
             <Grid item>
               <Typography variant="h4" align={matchesSM ? "center" : undefined}>
                 Automation
