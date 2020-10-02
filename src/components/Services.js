@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   serviceContainer: {
-    marginTop: "12em",
+    marginTop: "10em",
     [theme.breakpoints.down("sm")]: {
       padding: 25,
     },
@@ -50,17 +50,34 @@ const Services = (props) => {
 
   return (
     <Grid container direction="column">
+      <Grid
+        item
+        style={{
+          marginLeft: matchesSM ? 0 : "5em",
+          marginTop: matchesSM ? "1em" : "2em",
+        }}
+      >
+        <Typography
+          variant="h2"
+          gutterBottom
+          align={matchesSM ? "center" : undefined}
+        >
+          Services
+        </Typography>
+      </Grid>
       {/*-----iOS/Android Block-----*/}
       <Grid item>
         <Grid
           container
           className={classes.serviceContainer}
           justify={matchesSM ? "center" : "flex-end"}
+          style={{ marginTop: matchesSM ? "1em" : "5em" }}
         >
           <Grid
             item
             style={{
               textAlign: matchesSM ? "center" : undefined,
+              width: matchesSM ? undefined : "35em",
             }}
           >
             <Typography variant="h4">iOS/Android App Development</Typography>
@@ -95,6 +112,7 @@ const Services = (props) => {
               className={classes.icon}
               src={mobileAppsIcon}
               alt="mobile apps icon"
+              width="250em"
             />
           </Grid>
         </Grid>
@@ -156,11 +174,13 @@ const Services = (props) => {
           container
           className={classes.serviceContainer}
           justify={matchesSM ? "center" : "flex-end"}
+          style={{ marginBottom: "10em" }}
         >
           <Grid
             item
             style={{
               textAlign: matchesSM ? "center" : undefined,
+              width: matchesSM ? undefined : "35em",
             }}
           >
             <Typography variant="h4">Website Development</Typography>
@@ -194,6 +214,7 @@ const Services = (props) => {
               className={classes.icon}
               src={websitesIcon}
               alt="website icon"
+              width="250em"
             />
           </Grid>
         </Grid>
