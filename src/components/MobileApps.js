@@ -10,6 +10,10 @@ import Hidden from "@material-ui/core/Hidden";
 
 import backArrow from "../assets/backArrow.svg";
 import forwardArrow from "../assets/forwardArrow.svg";
+import swissKnife from "../assets/swissKnife.svg";
+import extendAccess from "../assets/extendAccess.svg";
+import engagement from "../assets/increaseEngagement.svg";
+
 import integrationAnimation from "../animations/integrationAnimation/data";
 
 const useStyles = makeStyles((theme) => ({
@@ -33,6 +37,7 @@ const MobileApps = (props) => {
   const classes = useStyles();
   const theme = useTheme();
   const matchesMD = useMediaQuery(theme.breakpoints.down("md"));
+  const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
   const matchesXS = useMediaQuery(theme.breakpoints.down("xs"));
 
   const defaultOptions = {
@@ -119,41 +124,117 @@ const MobileApps = (props) => {
           </Grid>
         </Hidden>
       </Grid>
-      <Grid item container className={classes.rowContainer}>
+      <Grid
+        item
+        container
+        className={classes.rowContainer}
+        direction={matchesSM ? "column" : "row"}
+        style={{ marginTop: "15em", marginBottom: "15em" }}
+      >
         <Grid item container direction="column" md>
           <Grid item>
-            <Typography variant="h4">Integration</Typography>
+            <Typography variant="h4" align={matchesSM ? "center" : undefined}>
+              Integration
+            </Typography>
           </Grid>
           <Grid item>
-            <Typography variant="body1" paragraph>
+            <Typography
+              variant="body1"
+              paragraph
+              align={matchesSM ? "center" : undefined}
+            >
               Our technology enables an innate interconnection between web and
               mobile applications, putting everything you need right in one
               convenient place.
             </Typography>
-            <Typography variant="body1" paragraph>
+            <Typography
+              variant="body1"
+              paragraph
+              align={matchesSM ? "center" : undefined}
+            >
               This allows you to extend your reach, reinvent interactions, and
               develop a stronger relationship with your users than ever before.
             </Typography>
           </Grid>
         </Grid>
         <Grid item md>
-          <Lottie options={defaultOptions} />
+          <Lottie options={defaultOptions} style={{ maxWidth: "18em" }} />
         </Grid>
         <Grid item container direction="column" md>
           <Grid item>
-            <Typography variant="h4" align="right">
+            <Typography variant="h4" align={matchesSM ? "center" : "right"}>
               Simultaneous Platform Support
             </Typography>
           </Grid>
           <Grid item>
-            <Typography variant="body1" paragraph align="right">
+            <Typography
+              variant="body1"
+              paragraph
+              align={matchesSM ? "center" : "right"}
+            >
               Our cutting-edge development process allows us to create apps for
               iPhone, Android, and tablets — all at the same time.
             </Typography>
-            <Typography variant="body1" paragraph align="right">
+            <Typography
+              variant="body1"
+              paragraph
+              align={matchesSM ? "center" : "right"}
+            >
               This significantly reduces costs and creates a more unified brand
               experience across all devices.
             </Typography>
+          </Grid>
+        </Grid>
+      </Grid>
+      <Grid
+        item
+        container
+        className={classes.rowContainer}
+        direction={matchesMD ? "column" : "row"}
+        style={{ marginBottom: "15em" }}
+      >
+        <Grid item container direction="column" md alignItems="center">
+          <Grid item>
+            <Typography variant="h4" align="center">
+              Extend functionality
+            </Typography>
+          </Grid>
+          <Grid item>
+            <img src={swissKnife} alt="swiss knife" />
+          </Grid>
+        </Grid>
+        <Grid
+          item
+          container
+          direction="column"
+          md
+          alignItems="center"
+          style={{
+            marginBottom: matchesMD ? "10em" : 0,
+            marginTop: matchesMD ? "10em" : 0,
+          }}
+        >
+          <Grid item>
+            <Typography variant="h4" align="center">
+              Extend Access
+            </Typography>
+          </Grid>
+          <Grid item>
+            <img
+              src={extendAccess}
+              alt="tear-one-off sign"
+              style={{ maxWidth: matchesXS ? "20em" : "28em" }}
+            />
+          </Grid>
+        </Grid>
+        <Grid item container direction="column" md alignItems="center">
+          <Grid item>
+            <Typography variant="h4" align="center">
+              Increase Engagement
+            </Typography>
+          </Grid>
+          <Grid item>
+            <img src={engagement} alt="app with notification" />
           </Grid>
         </Grid>
       </Grid>
