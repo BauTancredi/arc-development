@@ -72,7 +72,7 @@ const MobileApps = (props) => {
               to="/customsoftware"
               onClick={() => props.setSelectedIndex(1)}
             >
-              <img src={backArrow} alt="Back to Services Page" />
+              <img src={backArrow} alt="Back to Custom Softare" />
             </IconButton>
           </Grid>
         </Hidden>
@@ -118,10 +118,7 @@ const MobileApps = (props) => {
               to="/websites"
               onClick={() => props.setSelectedIndex(3)}
             >
-              <img
-                src={forwardArrow}
-                alt="Forward to iOS/Android App Development"
-              />
+              <img src={forwardArrow} alt="Forward to Websites Development" />
             </IconButton>
           </Grid>
         </Hidden>
