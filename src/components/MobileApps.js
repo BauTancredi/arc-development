@@ -16,6 +16,8 @@ import engagement from "../assets/increaseEngagement.svg";
 
 import integrationAnimation from "../animations/integrationAnimation/data";
 
+import CallToAction from "./ui/CallToAction";
+
 const useStyles = makeStyles((theme) => ({
   rowContainer: {
     paddingLeft: "5em",
@@ -237,6 +239,9 @@ const MobileApps = (props) => {
             <img src={engagement} alt="app with notification" />
           </Grid>
         </Grid>
+      </Grid>
+      <Grid item>
+        <CallToAction setValue={props.setValue} />
       </Grid>
     </Grid>
   );
