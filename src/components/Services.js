@@ -62,7 +62,7 @@ const Services = (props) => {
           gutterBottom
           align={matchesSM ? "center" : undefined}
         >
-          Services
+          Service
         </Typography>
       </Grid>
       {/*-----iOS/Android Block-----*/}
