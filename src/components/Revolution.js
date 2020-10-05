@@ -17,6 +17,8 @@ import iterate from "../assets/iterateIcon.svg";
 
 import technologyAnimation from "../animations/technologyAnimation/data";
 
+import CallToAction from "./ui/CallToAction";
+
 const useStyles = makeStyles((theme) => ({
   rowContainer: {
     paddingLeft: "5em",
@@ -28,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Revolution = () => {
+const Revolution = (props) => {
   const classes = useStyles();
   const theme = useTheme();
   const matchesMD = useMediaQuery(theme.breakpoints.down("md"));
@@ -829,6 +831,9 @@ const Revolution = () => {
         <Grid item lg style={{ alignSelf: "center" }}>
           <img src={iterate} alt="falling dominoes" width="100%" />
         </Grid>
+      </Grid>
+      <Grid item>
+        <CallToAction setValue={props.setValue} />
       </Grid>
     </Grid>
   );
