@@ -5,6 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 
 import vision from "../assets/vision.svg";
+import consultation from "../assets/consultationIcon.svg";
 
 import technologyAnimation from "../animations/technologyAnimation/data";
 
@@ -141,6 +142,66 @@ const Revolution = () => {
             options={defaultOptions}
             style={{ maxWidth: "40em", margin: 0 }}
           />
+        </Grid>
+      </Grid>
+      <Grid item container className={classes.rowContainer} justify="center">
+        <Grid item>
+          <Typography variant="h4" gutterBottom>
+            Process
+          </Typography>
+        </Grid>
+      </Grid>
+      <Grid
+        item
+        container
+        className={classes.rowContainer}
+        style={{ backgroundColor: "#B3B3B3", height: "90em" }}
+      >
+        <Grid item container direction="column" lg>
+          <Grid item>
+            <Typography
+              variant="h4"
+              gutterBottom
+              style={{ color: "#000", marginTop: "5em" }}
+            >
+              Consultation
+            </Typography>
+          </Grid>
+          <Grid item>
+            <Typography
+              variant="body1"
+              paragraph
+              style={{ color: "#FFF", maxWidth: "20em" }}
+            >
+              Our process begins the moment you realize you need a piece of
+              technology for your business. Whether you already have an idea for
+              where to start and what to do, or if you just know you want to
+              step things up, our initial consultation will help you examine
+              your business holistically to find the best solutions.
+            </Typography>
+            <Typography
+              variant="body1"
+              paragraph
+              style={{ color: "#FFF", maxWidth: "20em" }}
+            >
+              Detailed notes will be taken on your requirements and constraints,
+              while taking care to identify other potential areas for
+              consideration.
+            </Typography>
+            <Typography
+              variant="body1"
+              paragraph
+              style={{ color: "#FFF", maxWidth: "20em" }}
+            >
+              Cutting-edge advancements in machine learning like object
+              detection and natural language processing allow computers to do
+              things previously unimaginable, and our expertise and intuition
+              will help usher you into this new future of possibilities.
+            </Typography>
+          </Grid>
+        </Grid>
+        <Grid item lg style={{ alignSelf: "center" }}>
+          <img src={consultation} alt="handshake" />
         </Grid>
       </Grid>
     </Grid>
