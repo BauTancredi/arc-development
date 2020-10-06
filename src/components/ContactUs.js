@@ -10,6 +10,7 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 import ButtonArrow from "./ui/ButtonArrow";
 
 import background from "../assets/background.jpg";
+import mobileBackground from "../assets/mobileBackground.jpg";
 import phoneIcon from "../assets/phone.svg";
 import emailIcon from "../assets/email.svg";
 import airplane from "../assets/send.svg";
@@ -22,6 +23,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundRepeat: "no-repeat",
     height: "60em",
     paddingBottom: "10em",
+    [theme.breakpoints.down("md")]: {
+      backgroundImage: `url(${mobileBackground})`,
+    },
   },
   estimateButton: {
     ...theme.typography.estimate,
@@ -35,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
     "&:hover": {
       backgroundColor: theme.palette.secondary.light,
     },
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("md")]: {
       marginRight: 0,
       marginLeft: 0,
     },
@@ -46,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
     height: 35,
     padding: 5,
 
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("md")]: {
       marginBottom: "2em",
     },
   },
@@ -72,6 +76,7 @@ const ContactUs = (props) => {
   const classes = useStyles();
   const theme = useTheme();
   const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
+  const matchesMD = useMediaQuery(theme.breakpoints.down("md"));
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -88,16 +93,25 @@ const ContactUs = (props) => {
         xl={3}
         justify="center"
         alignItems="center"
+        style={{
+          marginBottom: matchesMD ? "5em" : 0,
+          marginTop: matchesSM ? "1em" : matchesMD ? "5em" : 0,
+        }}
       >
         <Grid item>
           <Grid container direction="column">
             <Grid item>
-              <Typography variant="h2" style={{ lineHeight: 1 }}>
+              <Typography
+                variant="h2"
+                style={{ lineHeight: 1 }}
+                align={matchesMD ? "center" : undefined}
+              >
                 Contact Us
               </Typography>
               <Typography
                 variant="body1"
                 style={{ color: theme.palette.common.blue }}
+                align={matchesMD ? "center" : undefined}
               >
                 We're waiting
               </Typography>
@@ -136,28 +150,36 @@ const ContactUs = (props) => {
                 </Typography>
               </Grid>
             </Grid>
-            <Grid item container style={{ maxWidth: "20em" }}>
-              <Grid item>
+            <Grid
+              item
+              container
+              direction="column"
+              style={{ maxWidth: "20em" }}
+            >
+              <Grid item style={{ marginBottom: "0.5rem" }}>
                 <TextField
                   label="Name"
                   id="name"
+                  fullWidth
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
               </Grid>
 
-              <Grid item>
+              <Grid item style={{ marginBottom: "0.5rem" }}>
                 <TextField
                   label="Email"
                   id="email"
+                  fullWidth
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </Grid>
-              <Grid item>
+              <Grid item style={{ marginBottom: "0.5rem" }}>
                 <TextField
                   label="Phone"
                   id="phone"
+                  fullWidth
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                 />
@@ -168,6 +190,7 @@ const ContactUs = (props) => {
                 InputProps={{ disableUnderline: true }}
                 className={classes.message}
                 multiline
+                fullWidth
                 rows={10}
                 id="message"
                 value={message}
@@ -194,24 +217,30 @@ const ContactUs = (props) => {
         lg={8}
         xl={9}
         alignItems="center"
+        justify={matchesMD ? "center" : undefined}
+        direction={matchesMD ? "column" : "row"}
       >
         <Grid
           item
           style={{
-            marginLeft: matchesSM ? 0 : "3em",
-            textAlign: matchesSM ? "center" : "inherit",
+            marginLeft: matchesMD ? 0 : "3em",
+            textAlign: matchesMD ? "center" : "inherit",
           }}
         >
           <Grid container direction="column">
             <Grid item>
-              <Typography variant="h2">
+              <Typography variant="h2" align={matchesMD ? "center" : undefined}>
                 Simple Software. <br />
                 Revolutionary Results.
               </Typography>
-              <Typography variant="subtitle2" style={{ fontSize: "1.5rem" }}>
+              <Typography
+                variant="subtitle2"
+                style={{ fontSize: "1.5rem" }}
+                align={matchesMD ? "center" : undefined}
+              >
                 Take advantage of the 21st century.
               </Typography>
-              <Grid container item justify={matchesSM ? "center" : undefined}>
+              <Grid container item justify={matchesMD ? "center" : undefined}>
                 <Button
                   variant="outlined"
                   className={classes.learnButton}

@@ -91,6 +91,10 @@ export default createMuiTheme({
           borderBottom: `2px solid ${arcBlue}`,
         },
       },
+      root: {
+        color: arcGrey,
+        fontWeight: 300,
+      },
     },
   },
 });
