@@ -145,7 +145,14 @@ const ContactUs = (props) => {
       "https://us-central1-material-ui-course-ddbd0.cloudfunctions.net/sendMail";
 
     axios
-      .get(url)
+      .get(url, {
+        params: {
+          name: name,
+          email: email,
+          phone: phone,
+          message: message,
+        },
+      })
       .then((res) => {
         setLoading(false);
         setOpen(false);
