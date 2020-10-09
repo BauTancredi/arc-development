@@ -419,6 +419,7 @@ const CustomSoftware = (props) => {
           className={classes.itemContainer}
           md
           direction={matchesSM ? "column" : "row"}
+          // eslint-disable-next-line
           className={classes.rowContainer}
         >
           <Grid item md>
