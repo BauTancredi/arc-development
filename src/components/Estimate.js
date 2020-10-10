@@ -6,6 +6,9 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
+import Dialog from "@material-ui/core/Dialog";
+import DialogContent from "@material-ui/core/DialogContent";
+import TextField from "@material-ui/core/TextField";
 
 import check from "../assets/check.svg";
 import send from "../assets/send.svg";
@@ -50,6 +53,11 @@ const useStyles = makeStyles((theme) => ({
     "&:hover": {
       backgroundColor: theme.palette.secondary.light,
     },
+  },
+  message: {
+    border: `2px solid ${theme.palette.common.blue}`,
+    marginTop: "5em",
+    borderRadius: 5,
   },
 }));
 
@@ -313,6 +321,13 @@ const Estimate = () => {
   const theme = useTheme();
 
   const [questions, setQuestions] = useState(defaultQuestions);
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [emailHelper, setEmailHelper] = useState("");
+  const [phone, setPhone] = useState("");
+  const [phoneHelper, setPhoneHelper] = useState("");
+  const [message, setMessage] = useState("");
 
   const defaultOptions = {
     loop: true,
@@ -404,6 +419,43 @@ const Estimate = () => {
         break;
       default:
         setQuestions(newQuestions);
+        break;
+    }
+  };
+
+  const onChange = (e) => {
+    let valid;
+
+    switch (e.target.id) {
+      case "email":
+        setEmail(e.target.value);
+
+        valid = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(
+          e.target.value
+        );
+
+        if (!valid) {
+          setEmailHelper("Invalid email");
+        } else {
+          setEmailHelper("");
+        }
+        break;
+
+      case "phone":
+        setPhone(e.target.value);
+
+        valid = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/.test(
+          e.target.value
+        );
+
+        if (!valid) {
+          setPhoneHelper("Invalid phone");
+        } else {
+          setPhoneHelper("");
+        }
+        break;
+
+      default:
         break;
     }
   };
@@ -532,11 +584,83 @@ const Estimate = () => {
           </Grid>
         </Grid>
         <Grid item>
-          <Button variant="contained" className={classes.estimateButton}>
+          <Button
+            variant="contained"
+            className={classes.estimateButton}
+            onClick={() => setDialogOpen(true)}
+          >
             Get Estimate
           </Button>
         </Grid>
       </Grid>
+      <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)}>
+        <Grid container justify="center">
+          <Grid item>
+            <Typography variant="h2" align="center">
+              Estimate
+            </Typography>
+          </Grid>
+        </Grid>
+        <DialogContent>
+          <Grid container>
+            <Grid item container direction="column">
+              <Grid item style={{ marginBottom: "0.5rem" }}>
+                <TextField
+                  label="Name"
+                  id="name"
+                  fullWidth
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </Grid>
+              <Grid item style={{ marginBottom: "0.5rem" }}>
+                <TextField
+                  label="Email"
+                  error={emailHelper.length !== 0}
+                  helperText={emailHelper}
+                  id="email"
+                  fullWidth
+                  value={email}
+                  onChange={onChange}
+                />
+              </Grid>
+              <Grid item style={{ marginBottom: "0.5rem" }}>
+                <TextField
+                  error={phoneHelper.length !== 0}
+                  helperText={phoneHelper}
+                  label="Phone"
+                  id="phone"
+                  fullWidth
+                  value={phone}
+                  onChange={onChange}
+                />
+              </Grid>
+            </Grid>
+            <Grid item style={{ maxWidth: "20em" }}>
+              <TextField
+                InputProps={{ disableUnderline: true }}
+                className={classes.message}
+                multiline
+                fullWidth
+                rows={10}
+                id="message"
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+              />
+            </Grid>
+            <Grid item>
+              <Typography variante="body1" paragraph>
+                We can create this digital solution for an estimate
+              </Typography>
+              <Typography variante="body1" paragraph>
+                Fill out your name, phone number, and email, place your request
+                , and we'll get back to you with details moving forward and a
+                final price.
+              </Typography>
+            </Grid>
+          </Grid>
+        </DialogContent>
+      </Dialog>
     </Grid>
   );
 };
