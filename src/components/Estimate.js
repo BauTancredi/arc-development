@@ -335,6 +335,12 @@ const Estimate = () => {
   const [phoneHelper, setPhoneHelper] = useState("");
   const [message, setMessage] = useState("");
   const [total, setTotal] = useState(0);
+  const [service, setService] = useState([]);
+  const [platforms, setPlatforms] = useState([]);
+  const [features, setFeatures] = useState([]);
+  const [customFeatures, setCustomFeatures] = useState("");
+  const [category, setCategory] = useState("");
+  const [users, setUsers] = useState("");
 
   const defaultOptions = {
     loop: true,
@@ -417,12 +423,15 @@ const Estimate = () => {
     switch (newSelected.title) {
       case "Custom Software Development":
         setQuestions(softwareQuestions);
+        setService(newSelected.title);
         break;
       case "iOS/Android App Development":
         setQuestions(softwareQuestions);
+        setService(newSelected.title);
         break;
       case "Website Development":
         setQuestions(websiteQuestions);
+        setService(newSelected.title);
         break;
       default:
         setQuestions(newQuestions);
@@ -490,6 +499,24 @@ const Estimate = () => {
     }
 
     setTotal(cost);
+  };
+
+  const getPlatforms = () => {
+    let newPlatforms = [];
+
+    if (questions.length > 2) {
+      newPlatforms = questions
+        .filter(
+          (question) =>
+            question.title === "Which platforms do you need supported?"
+        )
+        .map((question) =>
+          question.options.filter((option) => option.selected)
+        )[0]
+        .map((option) => newPlatforms.push(option.title));
+    }
+
+    setPlatforms(newPlatforms);
   };
 
   return (
@@ -622,6 +649,7 @@ const Estimate = () => {
             onClick={() => {
               setDialogOpen(true);
               getTotal();
+              getPlatforms();
             }}
           >
             Get Estimate
@@ -638,7 +666,7 @@ const Estimate = () => {
         </Grid>
         <DialogContent>
           <Grid container>
-            <Grid item container direction="column">
+            <Grid item container direction="column" md={7}>
               <Grid item style={{ marginBottom: "0.5rem" }}>
                 <TextField
                   label="Name"
@@ -670,31 +698,104 @@ const Estimate = () => {
                   onChange={onChange}
                 />
               </Grid>
+              <Grid item style={{ maxWidth: "20em" }}>
+                <TextField
+                  InputProps={{ disableUnderline: true }}
+                  className={classes.message}
+                  multiline
+                  fullWidth
+                  rows={10}
+                  id="message"
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                />
+              </Grid>
+              <Grid item>
+                <Typography variante="body1" paragraph>
+                  We can create this digital solution for an estimate{" "}
+                  <span className={classes.specialText}>
+                    $ {total.toFixed(2)}
+                  </span>
+                </Typography>
+                <Typography variante="body1" paragraph>
+                  Fill out your name, phone number, and email, place your
+                  request , and we'll get back to you with details moving
+                  forward and a final price.
+                </Typography>
+              </Grid>
             </Grid>
-            <Grid item style={{ maxWidth: "20em" }}>
-              <TextField
-                InputProps={{ disableUnderline: true }}
-                className={classes.message}
-                multiline
-                fullWidth
-                rows={10}
-                id="message"
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-              />
-            </Grid>
-            <Grid item>
-              <Typography variante="body1" paragraph>
-                We can create this digital solution for an estimate{" "}
-                <span className={classes.specialText}>
-                  $ {total.toFixed(2)}
-                </span>
-              </Typography>
-              <Typography variante="body1" paragraph>
-                Fill out your name, phone number, and email, place your request
-                , and we'll get back to you with details moving forward and a
-                final price.
-              </Typography>
+            <Grid item container direction="column" md={5}>
+              <Grid item>
+                <Grid container direction="column">
+                  <Grid item container alignItems="center">
+                    <Grid item>
+                      <img src={check} alt="checkmark" />
+                    </Grid>
+                    <Grid item>
+                      <Typography variant="body1">
+                        You want {service}
+                        {platforms.length > 0
+                          ? ` for ${
+                              //if only web application is selected...
+                              platforms.indexOf("Web Application") > -1 &&
+                              platforms.length === 1
+                                ? //then finish sentence here
+                                  "a Web Application."
+                                : //otherwise, if web application and another platform is selected...
+                                platforms.indexOf("Web Application") > -1 &&
+                                  platforms.length === 2
+                                ? //then finish the sentence here
+                                  `a Web Application and an ${platforms[1]}.`
+                                : //otherwise, if only one platform is selected which isn't web application...
+                                platforms.length === 1
+                                ? //then finish the sentence here
+                                  `an ${platforms[0]}`
+                                : //otherwise, if other two options are selected...
+                                platforms.length === 2
+                                ? //then finish the sentence here
+                                  "an iOS Application and an Android Application."
+                                : //otherwise if all three are selected...
+                                platforms.length === 3
+                                ? //then finish the sentence here
+                                  "a Web Application, an iOS Application, and an Android Application."
+                                : null
+                            }`
+                          : null}
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                  <Grid item container alignItems="center">
+                    <Grid item>
+                      <img src={check} alt="checkmark" />
+                    </Grid>
+                    <Grid item>
+                      <Typography variant="body1">
+                        Second options check
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                  <Grid item container alignItems="center">
+                    <Grid item>
+                      <img src={check} alt="checkmark" />
+                    </Grid>
+                    <Grid item>
+                      <Typography variant="body1">
+                        Third options check
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </Grid>
+              <Grid item>
+                <Button variant="h2" className={classes.estimateButton}>
+                  Place Request
+                  <img
+                    src={send}
+                    alt="paper airplane"
+                    style={{ marginLeft: "0.5em" }}
+                  />
+                </Button>
+              </Grid>
             </Grid>
           </Grid>
         </DialogContent>
