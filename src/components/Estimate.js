@@ -492,10 +492,12 @@ const Estimate = () => {
         )
         .map((question) =>
           question.options.filter((option) => option.selected)
-        )[0][0].cost;
+        )[0][0];
 
-      cost -= userCost;
-      cost *= userCost;
+      setUsers(userCost.title);
+
+      cost -= userCost.cost;
+      cost *= userCost.cost;
     }
 
     setTotal(cost);
@@ -505,7 +507,7 @@ const Estimate = () => {
     let newPlatforms = [];
 
     if (questions.length > 2) {
-      newPlatforms = questions
+      questions
         .filter(
           (question) =>
             question.title === "Which platforms do you need supported?"
@@ -534,6 +536,22 @@ const Estimate = () => {
         );
 
       setFeatures(newFeatures);
+    }
+  };
+
+  const getCustomFeatures = () => {
+    if (questions.length > 2) {
+      const newCustomFeatures = questions
+        .filter(
+          (question) =>
+            question.title ===
+            "What type of custom features do you expect to need?"
+        )
+        .map((question) =>
+          question.options.filter((option) => option.selected)
+        )[0][0].title;
+
+      setCustomFeatures(newCustomFeatures);
     }
   };
 
@@ -669,13 +687,18 @@ const Estimate = () => {
               getTotal();
               getPlatforms();
               getFeatures();
+              getCustomFeatures();
             }}
           >
             Get Estimate
           </Button>
         </Grid>
       </Grid>
-      <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)}>
+      <Dialog
+        open={dialogOpen}
+        onClose={() => setDialogOpen(false)}
+        style={{ zIndex: 1302 }}
+      >
         <Grid container justify="center">
           <Grid item>
             <Typography variant="h2" align="center">
@@ -825,7 +848,9 @@ const Estimate = () => {
                     </Grid>
                     <Grid item>
                       <Typography variant="body1">
-                        Third options check
+                        The custom features will be of{" "}
+                        {customFeatures.toLowerCase()}
+                        {`, and the project will be used by about ${users} users.`}
                       </Typography>
                     </Grid>
                   </Grid>
