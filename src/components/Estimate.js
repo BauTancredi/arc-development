@@ -333,7 +333,6 @@ const Estimate = () => {
   const theme = useTheme();
   const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
   const matchesMD = useMediaQuery(theme.breakpoints.down("md"));
-  const matchesXS = useMediaQuery(theme.breakpoints.down("xs"));
 
   const [questions, setQuestions] = useState(defaultQuestions);
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -845,8 +844,9 @@ const Estimate = () => {
                 </Typography>
               </Grid>
               <Grid item container>
-                {question.options.map((option) => (
+                {question.options.map((option, index) => (
                   <Grid
+                    key={index}
                     item
                     container
                     direction="column"
@@ -1004,6 +1004,7 @@ const Estimate = () => {
                   className={classes.message}
                   multiline
                   fullWidth
+                  placeholder="Tell us more about your project"
                   rows={10}
                   id="message"
                   value={message}
@@ -1015,6 +1016,7 @@ const Estimate = () => {
                   variant="body1"
                   paragraph
                   align={matchesSM ? "center" : undefined}
+                  syyle={{ lineHeight: 1.25 }}
                 >
                   We can create this digital solution for an estimate{" "}
                   <span className={classes.specialText}>
@@ -1050,6 +1052,14 @@ const Estimate = () => {
                   variant="contained"
                   className={classes.estimateButton}
                   onClick={sendEstimate}
+                  disabled={
+                    name.length === 0 ||
+                    message.length === 0 ||
+                    phoneHelper.length !== 0 ||
+                    emailHelper.length !== 0 ||
+                    email.length === 0 ||
+                    phone.length === 0
+                  }
                 >
                   {loading ? (
                     <CircularProgress size={30} />

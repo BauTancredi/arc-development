@@ -397,6 +397,7 @@ const ContactUs = (props) => {
               className={classes.message}
               multiline
               fullWidth
+              placeholder="Tell us more about your project"
               rows={10}
               id="message"
               value={message}
