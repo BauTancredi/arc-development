@@ -640,6 +640,31 @@ const Estimate = () => {
       });
   };
 
+  const estimateDisable = () => {
+    let disabled = true;
+
+    const emptySelections = questions
+      .map((question) => question.options.filter((option) => option.selected))
+      .filter((question) => question.length === 0);
+
+    if (questions.length === 2) {
+      if (emptySelections.length === 1) {
+        disabled = false;
+      }
+    } else if (questions.length === 1) {
+      disabled = true;
+    } else if (
+      emptySelections.length < 3 &&
+      questions[questions.length - 1].options.filter(
+        (option) => option.selected
+      ).length > 0
+    ) {
+      disabled = false;
+    }
+
+    return disabled;
+  };
+
   const softwareSelection = (
     <Grid container direction="column">
       <Grid
@@ -907,6 +932,7 @@ const Estimate = () => {
               getCustomFeatures();
               getCategory();
             }}
+            disabled={estimateDisable()}
           >
             Get Estimate
           </Button>
