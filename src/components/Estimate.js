@@ -9,6 +9,8 @@ import Typography from "@material-ui/core/Typography";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import TextField from "@material-ui/core/TextField";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import Hidden from "@material-ui/core/Hidden";
 
 import check from "../assets/check.svg";
 import send from "../assets/send.svg";
@@ -56,7 +58,8 @@ const useStyles = makeStyles((theme) => ({
   },
   message: {
     border: `2px solid ${theme.palette.common.blue}`,
-    marginTop: "5em",
+    marginTop: "3em",
+    marginBottom: "2em",
     borderRadius: 5,
   },
   specialText: {
@@ -325,6 +328,9 @@ const websiteQuestions = [
 const Estimate = () => {
   const classes = useStyles();
   const theme = useTheme();
+  const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
+  const matchesMD = useMediaQuery(theme.breakpoints.down("md"));
+  const matchesXS = useMediaQuery(theme.breakpoints.down("xs"));
 
   const [questions, setQuestions] = useState(defaultQuestions);
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -585,11 +591,16 @@ const Estimate = () => {
 
   const softwareSelection = (
     <Grid container direction="column">
-      <Grid item container alignItems="center">
-        <Grid item>
+      <Grid
+        item
+        container
+        alignItems="center"
+        style={{ marginBottom: "1.25em" }}
+      >
+        <Grid item xs={2}>
           <img src={check} alt="checkmark" />
         </Grid>
-        <Grid item>
+        <Grid item xs={10}>
           <Typography variant="body1">
             You want {service}
             {platforms.length > 0
@@ -622,11 +633,16 @@ const Estimate = () => {
           </Typography>
         </Grid>
       </Grid>
-      <Grid item container alignItems="center">
-        <Grid item>
+      <Grid
+        item
+        container
+        alignItems="center"
+        style={{ marginBottom: "1.25em" }}
+      >
+        <Grid item xs={2}>
           <img src={check} alt="checkmark" />
         </Grid>
-        <Grid item>
+        <Grid item xs={10}>
           <Typography variant="body1">
             {"with "}
             {/* if we have features... */}
@@ -656,10 +672,10 @@ const Estimate = () => {
         </Grid>
       </Grid>
       <Grid item container alignItems="center">
-        <Grid item>
+        <Grid item xs={2}>
           <img src={check} alt="checkmark" />
         </Grid>
-        <Grid item>
+        <Grid item xs={10}>
           <Typography variant="body1">
             The custom features will be of {customFeatures.toLowerCase()}
             {`, and the project will be used by about ${users} users.`}
@@ -670,12 +686,12 @@ const Estimate = () => {
   );
 
   const websiteSelection = (
-    <Grid container direction="column">
+    <Grid container direction="column" style={{ marginTop: "14em" }}>
       <Grid item container alignItems="center">
-        <Grid item>
+        <Grid item xs={2}>
           <img src={check} alt="checkmark" />
         </Grid>
-        <Grid item>
+        <Grid item xs={10}>
           <Typography variant="body1">
             You want{" "}
             {category === "Basic."
@@ -689,13 +705,28 @@ const Estimate = () => {
 
   return (
     <Grid container>
-      <Grid item container direction="column" lg>
-        <Grid item style={{ marginTop: "2em", marginLeft: "5em" }}>
-          <Typography variant="h2">Estimate</Typography>
+      <Grid
+        item
+        container
+        direction="column"
+        lg
+        alignItems={matchesMD ? "center" : undefined}
+      >
+        <Grid
+          item
+          style={{ marginTop: "2em", marginLeft: matchesMD ? 0 : "5em" }}
+        >
+          <Typography variant="h2" align={matchesMD ? "center" : undefined}>
+            Estimate
+          </Typography>
         </Grid>
         <Grid
           item
-          style={{ marginRight: "10em", maxWidth: "50em", marginTop: "7.5em" }}
+          style={{
+            marginRight: matchesMD ? 0 : "10em",
+            maxWidth: "50em",
+            marginTop: "7.5em",
+          }}
         >
           <Lottie options={defaultOptions} height="100%" width="100%" />
         </Grid>
@@ -706,7 +737,7 @@ const Estimate = () => {
         container
         direction="column"
         lg
-        style={{ marginRight: "2em", marginBottom: "25em" }}
+        style={{ marginRight: matchesMD ? 0 : "2em", marginBottom: "25em" }}
         alignItems="center"
       >
         {questions
@@ -722,6 +753,8 @@ const Estimate = () => {
                     marginTop: "5em",
                     fontSize: "2.25rem",
                     lineHeight: 1.24,
+                    marginLeft: matchesSM ? "1em" : 0,
+                    marginRight: matchesSM ? "1em" : 0,
                   }}
                 >
                   {question.title}
@@ -748,6 +781,7 @@ const Estimate = () => {
                       display: "grid",
                       textTransform: "none",
                       borderRadius: 0,
+                      marginBottom: matchesSM ? "1.5em" : 0,
                       backgroundColor: option.selected
                         ? theme.palette.common.orange
                         : null,
@@ -831,17 +865,31 @@ const Estimate = () => {
         open={dialogOpen}
         onClose={() => setDialogOpen(false)}
         style={{ zIndex: 1302 }}
+        fullWidth
+        maxWidth="lg"
+        fullScreen={matchesSM}
       >
         <Grid container justify="center">
-          <Grid item>
+          <Grid item style={{ marginTop: "1em", marginBottom: "1em" }}>
             <Typography variant="h2" align="center">
               Estimate
             </Typography>
           </Grid>
         </Grid>
         <DialogContent>
-          <Grid container>
-            <Grid item container direction="column" md={7}>
+          <Grid
+            container
+            justify="space-around"
+            direction={matchesSM ? "column" : "row"}
+            alignItems={matchesSM ? "center" : undefined}
+          >
+            <Grid
+              item
+              container
+              direction="column"
+              md={7}
+              style={{ maxWidth: "20em" }}
+            >
               <Grid item style={{ marginBottom: "0.5rem" }}>
                 <TextField
                   label="Name"
@@ -886,23 +934,40 @@ const Estimate = () => {
                 />
               </Grid>
               <Grid item>
-                <Typography variant="body1" paragraph>
+                <Typography
+                  variant="body1"
+                  paragraph
+                  align={matchesSM ? "center" : undefined}
+                >
                   We can create this digital solution for an estimate{" "}
                   <span className={classes.specialText}>
                     $ {total.toFixed(2)}
                   </span>
                 </Typography>
-                <Typography variant="body1" paragraph>
+                <Typography
+                  variant="body1"
+                  paragraph
+                  align={matchesSM ? "center" : undefined}
+                >
                   Fill out your name, phone number, and email, place your
                   request , and we'll get back to you with details moving
                   forward and a final price.
                 </Typography>
               </Grid>
             </Grid>
-            <Grid item container direction="column" md={5}>
-              <Grid item>
-                {questions.length > 2 ? softwareSelection : websiteSelection}
-              </Grid>
+            <Grid
+              item
+              container
+              direction="column"
+              alignItems={matchesSM ? "center" : undefined}
+              md={5}
+              style={{ maxWidth: "30em" }}
+            >
+              <Hidden smDown>
+                <Grid item>
+                  {questions.length > 2 ? softwareSelection : websiteSelection}
+                </Grid>
+              </Hidden>
               <Grid item>
                 <Button variant="contained" className={classes.estimateButton}>
                   Place Request
@@ -913,6 +978,23 @@ const Estimate = () => {
                   />
                 </Button>
               </Grid>
+              <Hidden mdUp>
+                <Grid
+                  item
+                  style={{
+                    marginBottom: matchesSM ? "5em" : 0,
+                    marginTop: matchesSM ? "1em" : 0,
+                  }}
+                >
+                  <Button
+                    style={{ fontWeight: 300 }}
+                    color="primary"
+                    onClick={() => setDialogOpen(false)}
+                  >
+                    Cancel
+                  </Button>
+                </Grid>
+              </Hidden>
             </Grid>
           </Grid>
         </DialogContent>
