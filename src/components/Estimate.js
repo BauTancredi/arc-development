@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from "react";
+import axios from "axios";
 import { cloneDeep } from "lodash";
 import Lottie from "react-lottie";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
@@ -36,6 +37,8 @@ import data from "../assets/data.svg";
 import android from "../assets/android.svg";
 import globe from "../assets/globe.svg";
 import biometrics from "../assets/biometrics.svg";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Snackbar from "@material-ui/core/Snackbar";
 
 import estimateAnimation from "../animations/estimateAnimation/data";
 
@@ -347,6 +350,12 @@ const Estimate = () => {
   const [customFeatures, setCustomFeatures] = useState("");
   const [category, setCategory] = useState("");
   const [users, setUsers] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [alert, setAlert] = useState({
+    open: false,
+    message: "",
+    backgroundColor: "",
+  });
 
   const defaultOptions = {
     loop: true,
@@ -587,6 +596,48 @@ const Estimate = () => {
 
       setCategory(newCategory);
     }
+  };
+
+  const sendEstimate = () => {
+    setLoading(true);
+
+    const url =
+      "https://us-central1-material-ui-course-ddbd0.cloudfunctions.net/sendMail";
+
+    axios
+      .get(url, {
+        params: {
+          name: name,
+          email: email,
+          phone: phone,
+          message: message,
+          total: total,
+          category: category,
+          service: service,
+          platforms: platforms,
+          features: features,
+          customFeatures: customFeatures,
+          users: users,
+        },
+      })
+      .then((res) => {
+        setLoading(false);
+        setDialogOpen(false);
+        setAlert({
+          open: true,
+          message: "Message sent successfully!",
+          backgroundColor: "#4BB543",
+        });
+      })
+      .catch((err) => {
+        console.error(err);
+        setLoading(false);
+        setAlert({
+          open: true,
+          message: "Something went wrong, please try again!",
+          backgroundColor: "#FF3232",
+        });
+      });
   };
 
   const softwareSelection = (
@@ -969,13 +1020,23 @@ const Estimate = () => {
                 </Grid>
               </Hidden>
               <Grid item>
-                <Button variant="contained" className={classes.estimateButton}>
-                  Place Request
-                  <img
-                    src={send}
-                    alt="paper airplane"
-                    style={{ marginLeft: "0.5em" }}
-                  />
+                <Button
+                  variant="contained"
+                  className={classes.estimateButton}
+                  onClick={sendEstimate}
+                >
+                  {loading ? (
+                    <CircularProgress size={30} />
+                  ) : (
+                    <Fragment>
+                      Place Request
+                      <img
+                        src={send}
+                        alt="paper airplane"
+                        style={{ marginLeft: "0.5em" }}
+                      />
+                    </Fragment>
+                  )}
                 </Button>
               </Grid>
               <Hidden mdUp>
@@ -999,6 +1060,14 @@ const Estimate = () => {
           </Grid>
         </DialogContent>
       </Dialog>
+      <Snackbar
+        open={alert.open}
+        message={alert.message}
+        ContentProps={{ style: { backgroundColor: alert.backgroundColor } }}
+        anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+        onClose={() => setAlert({ ...alert, open: false })}
+        autoHideDuration={4000}
+      />
     </Grid>
   );
 };
